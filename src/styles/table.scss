@@ -1,0 +1,26 @@
+.main-table {
+  width: 100%;
+
+  td {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  th {
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  td:last-child {
+    display: flex;
+    width: auto;
+  }
+}
+
+h1 {
+  text-align: center;
+}
