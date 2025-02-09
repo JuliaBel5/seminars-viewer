@@ -1,0 +1,22 @@
+@use "./styles/app.scss";
+@use "./styles/table.scss";
+
+:root {
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  color: #707f7a;
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f0e4;
+}
