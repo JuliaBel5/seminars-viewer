@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useSeminars } from "./hooks/useSeminars";
 import { Container, Title, Loader, Box } from "@mantine/core";
-import { SeminarsTable } from "./components/SeminarsTable";
-import { EditSeminarModal } from "./components/EditSeminarModal";
-import { ConfirmModal } from "./components/ConfirmModal";
+import { SeminarsTable } from "./components/table/SeminarsTable";
+import { ConfirmModal } from "./components/modals/ConfirmModal";
 import { Seminar } from "./types/seminarType";
 import { toast } from "react-toastify";
+import { EditSeminarModal } from "./components/modals/EditSeminarModal";
+import { ErrorMessages, FormConstants } from "./utils/constants";
 
 function App() {
   const { seminars, loading, error, deleteSeminar, updateSeminar } =
@@ -21,7 +22,7 @@ function App() {
         <Loader color={"cyan"} mt={"10%"} size={80} />{" "}
       </Box>
     );
-  if (error) toast.error("Ошибка загрузки данных");
+  if (error) toast.error(ErrorMessages.uploadError);
 
   return (
     <>
@@ -33,9 +34,9 @@ function App() {
           onSave={(updatedSeminar: Seminar) => updateSeminar(updatedSeminar)}
         />
       )}
-      <Container size="lg" py="xl" className="container">
+      <Container py="xl" className="container">
         <Title order={1} mb="lg" c={"#707f7a"}>
-          Семинары
+          {FormConstants.mainTitle}
         </Title>
 
         <SeminarsTable
@@ -59,10 +60,6 @@ function App() {
               }
               setisConfirmModalOpen(false);
             }}
-            title="Удаление семинара"
-            message="Вы уверены, что хотите удалить этот семинар?"
-            confirmText="Удалить"
-            cancelText="Отмена"
           />
         )}
       </Container>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Seminar } from "../types/seminarType";
+import { toast } from "react-toastify";
+import { ErrorMessages, FormConstants } from "../utils/constants";
 
 const API_URL = "http://localhost:3001/seminars"; // в реальном проекте хранила бы в .env. файле
 
@@ -13,7 +15,7 @@ export function useSeminars() {
       try {
         const response = await fetch(API_URL);
         if (!response.ok) {
-          throw new Error("Ошибка загрузки данных");
+          throw new Error(ErrorMessages.uploadError);
         }
         const data: Seminar[] = await response.json();
         setSeminars(data);
@@ -31,9 +33,10 @@ export function useSeminars() {
     try {
       const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
       if (!response.ok) {
-        throw new Error("Ошибка удаления");
+        throw new Error(ErrorMessages.deleteError);
       }
       setSeminars((prev) => prev.filter((seminar) => seminar.id !== id));
+      toast.success(FormConstants.deleteSuccess);
     } catch (err) {
       setError((err as Error).message);
     }
@@ -48,7 +51,7 @@ export function useSeminars() {
       });
 
       if (!response.ok) {
-        throw new Error("Ошибка обновления");
+        throw new Error(ErrorMessages.refreshError);
       }
 
       setSeminars((prev) =>
@@ -56,6 +59,7 @@ export function useSeminars() {
           seminar.id === updatedSeminar.id ? updatedSeminar : seminar
         )
       );
+      toast.success(FormConstants.confirmEditMessage);
     } catch (err) {
       setError((err as Error).message);
     }

@@ -1,5 +1,7 @@
 import { Table, Button, Image, Box } from "@mantine/core";
-import { Seminar } from "../types/seminarType";
+import { Seminar } from "../../types/seminarType";
+import { tableHeaders } from "./tableHeaders";
+import { FormConstants } from "../../utils/constants";
 
 interface SeminarsTableProps {
   seminars: Seminar[];
@@ -13,20 +15,17 @@ export function SeminarsTable({
   onEdit,
 }: SeminarsTableProps) {
   return (
-    <Table highlightOnHover className="main-table">
+    <Table striped highlightOnHover className="main-table">
       <thead>
         <tr>
-          <th>Фото</th>
-          <th>Название</th>
-          <th>Описание</th>
-          <th>Дата</th>
-          <th>Время</th>
-          <th>Действия</th>
+          {tableHeaders.map((header) => (
+            <th key={header}>{header}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
         {seminars.map((seminar) => (
-          <tr key={seminar.id}>
+          <tr key={seminar.id} style={{ borderBottom: "1px solid #dee2e6" }}>
             <td>
               <Image
                 src={seminar.photo}
@@ -42,7 +41,7 @@ export function SeminarsTable({
             <td>{(seminar.date as string) || ""}</td>
             <td>{seminar.time}</td>
             <td>
-              <Box display={"flex"}>
+              <Box display="flex">
                 <Button
                   variant="outline"
                   color="cyan"
@@ -51,17 +50,17 @@ export function SeminarsTable({
                   radius={7}
                   onClick={() => onEdit(seminar)}
                 >
-                  Редактировать
+                  {FormConstants.editButtonText}
                 </Button>
                 <Button
+                  variant="outline"
                   radius={7}
                   m="xs"
-                  variant="outline"
                   color="pink"
                   size="xs"
                   onClick={() => onDelete(seminar.id)}
                 >
-                  Удалить
+                  {FormConstants.deleteButtonText}
                 </Button>
               </Box>
             </td>
